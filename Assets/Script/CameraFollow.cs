@@ -33,5 +33,5 @@ public class CameraFollow : MonoBehaviour
             float offsetX = (camX - bgX) % bgWidth;
             backgound.position = new Vector3(camX + offsetX, backgound.position.y, backgound.position.z);
         }
-    }
+    } //test
 }
