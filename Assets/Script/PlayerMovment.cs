@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMovment : MonoBehaviour
 {
     [Header("Player Components")]
-    public SpriteRenderer playerSprite; // SpriteRenderer Player
+    public SpriteRenderer playerSprite;
 
     [Header("Movement")]
     public float moveSpeed = 5f;
@@ -14,9 +14,14 @@ public class PlayerMovment : MonoBehaviour
     private bool isGrounded;
     public Animator anim;
 
+    [Header("Player Status")]
+    public float health = 100f;
+    public float healthMax;
+    public bool canBeMoved = true;
+
     [Header("Shooting")]
     public PlayerAttack playerAttack;
-    public GameObject bulletPrefab; // drag Bullet prefab dari Project
+    public GameObject bulletPrefab;
     public Vector2 gunOffset = new Vector2(0.5f, 0.2f);
     public float bulletSpeed = 10f;
     public float attack = 5f;
@@ -26,6 +31,7 @@ public class PlayerMovment : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        healthMax = health;
 
         if (playerSprite == null)
             playerSprite = GetComponent<SpriteRenderer>();
@@ -33,14 +39,20 @@ public class PlayerMovment : MonoBehaviour
 
     void Update()
     {
-        Movement();
-        Jump();
-        Shoot();
+        if (canBeMoved)
+        {
+            Movement();
+            Jump();
+            Shoot();
+        }
 
         if (shootTimer > 0f)
             shootTimer -= Time.deltaTime;
-        if (Input.GetMouseButtonDown(0))
+
+        if (Input.GetMouseButtonDown(0) && playerAttack != null)
             playerAttack.Attack();
+
+        FallDie();
     }
 
     // ---------------- Movement ----------------
@@ -49,7 +61,6 @@ public class PlayerMovment : MonoBehaviour
         float x = Input.GetAxisRaw("Horizontal");
         rb.linearVelocity = new Vector2(x * moveSpeed, rb.linearVelocity.y);
 
-        // Flip Player sprite
         if (x < 0)
             playerSprite.flipX = true;
         else if (x > 0)
@@ -74,6 +85,17 @@ public class PlayerMovment : MonoBehaviour
     {
         if (collision.collider.CompareTag("Ground"))
             isGrounded = true;
+
+        // Damage dari enemy
+        if (collision.collider.CompareTag("Enemy"))
+        {
+            EnemyControler enemy = collision.collider.GetComponent<EnemyControler>();
+            if (enemy != null)
+            {
+                float damage = enemy.GetAttackDamage();
+                DamagedBy(damage);
+            }
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -86,13 +108,11 @@ public class PlayerMovment : MonoBehaviour
     void Shoot()
     {
         if (Input.GetMouseButton(0) && shootTimer <= 0f)
-        {   
-           
+        {
             shootTimer = shootCooldown;
 
             int direction = playerSprite.flipX ? -1 : 1;
 
-            // Spawn position
             Vector2 spawnPos = new Vector2(
                 transform.position.x + gunOffset.x * direction,
                 transform.position.y + gunOffset.y
@@ -100,15 +120,62 @@ public class PlayerMovment : MonoBehaviour
 
             GameObject bullet = Instantiate(bulletPrefab, spawnPos, Quaternion.identity);
 
-            // Launch bullet
             Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
             if (bulletRb != null)
                 bulletRb.linearVelocity = new Vector2(direction * bulletSpeed, 0);
 
-            // Flip bullet sprite if needed
             SpriteRenderer bulletSprite = bullet.GetComponentInChildren<SpriteRenderer>();
             if (bulletSprite != null)
                 bulletSprite.flipX = (direction == -1);
+        }
+    }
+
+    // ---------------- Damage System ----------------
+    public void DamagedBy(float damage)
+    {
+        health -= damage;
+
+        if (health <= 0)
+        {
+            health = 0;
+            Die();
+        }
+    }
+
+    // Mati jika jatuh
+    void FallDie()
+    {
+        if (transform.position.y < -20)
+        {
+            Die();
+        }
+    }
+
+    // Player mati
+    void Die()
+    {
+        playerSprite.enabled = false;
+        canBeMoved = false;
+
+        if (anim != null)
+            anim.SetTrigger("Die");
+
+        GameManager.GameOver();
+    }
+
+    // Kena peluru
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Bullet"))
+        {
+            Bullet bullet = collision.GetComponent<Bullet>();
+
+            if (bullet != null && bullet.targetTag == "Player")
+            {
+                float damage = bullet.GetDamage();
+                DamagedBy(damage);
+                Destroy(collision.gameObject);
+            }
         }
     }
 }

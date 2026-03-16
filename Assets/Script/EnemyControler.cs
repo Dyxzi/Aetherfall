@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class EnemyController : MonoBehaviour
+public class EnemyControler : MonoBehaviour
 {
     //basic status yang ada di enemy
     [Header("Status")]
