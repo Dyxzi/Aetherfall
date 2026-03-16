@@ -3,28 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\LENOVO LOQ\\Documents\\Ujicoba Unity\\Aetherfall\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{06C9BDA5-8574-D92F-1FA5-8F7BC001707A}|Assembly-CSharp.csproj|c:\\users\\lenovo loq\\documents\\ujicoba unity\\aetherfall\\assets\\script\\layerinfiniteloop.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{06C9BDA5-8574-D92F-1FA5-8F7BC001707A}|Assembly-CSharp.csproj|c:\\users\\lenovo loq\\documents\\ujicoba unity\\aetherfall\\assets\\script\\playerattack.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{06C9BDA5-8574-D92F-1FA5-8F7BC001707A}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\playerattack.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{06C9BDA5-8574-D92F-1FA5-8F7BC001707A}|Assembly-CSharp.csproj|c:\\users\\lenovo loq\\documents\\ujicoba unity\\aetherfall\\assets\\script\\playermovment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{06C9BDA5-8574-D92F-1FA5-8F7BC001707A}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\playermovment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{06C9BDA5-8574-D92F-1FA5-8F7BC001707A}|Assembly-CSharp.csproj|C:\\Users\\LENOVO LOQ\\Documents\\Ujicoba Unity\\Aetherfall\\assets\\script\\layerinfiniteloop.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{06C9BDA5-8574-D92F-1FA5-8F7BC001707A}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\layerinfiniteloop.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{06C9BDA5-8574-D92F-1FA5-8F7BC001707A}|Assembly-CSharp.csproj|C:\\Users\\LENOVO LOQ\\Documents\\Ujicoba Unity\\Aetherfall\\assets\\script\\parallaxlayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{06C9BDA5-8574-D92F-1FA5-8F7BC001707A}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\parallaxlayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{06C9BDA5-8574-D92F-1FA5-8F7BC001707A}|Assembly-CSharp.csproj|C:\\Users\\LENOVO LOQ\\Documents\\Ujicoba Unity\\Aetherfall\\assets\\script\\enemycontroler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{06C9BDA5-8574-D92F-1FA5-8F7BC001707A}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\enemycontroler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{06C9BDA5-8574-D92F-1FA5-8F7BC001707A}|Assembly-CSharp.csproj|C:\\Users\\LENOVO LOQ\\Documents\\Ujicoba Unity\\Aetherfall\\assets\\script\\parallaxbackground.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{06C9BDA5-8574-D92F-1FA5-8F7BC001707A}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\parallaxbackground.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{06C9BDA5-8574-D92F-1FA5-8F7BC001707A}|Assembly-CSharp.csproj|C:\\Users\\LENOVO LOQ\\Documents\\Ujicoba Unity\\Aetherfall\\assets\\script\\parallaxcamera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{06C9BDA5-8574-D92F-1FA5-8F7BC001707A}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\parallaxcamera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{06C9BDA5-8574-D92F-1FA5-8F7BC001707A}|Assembly-CSharp.csproj|C:\\Users\\LENOVO LOQ\\Documents\\Ujicoba Unity\\Aetherfall\\assets\\script\\camerafollow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{06C9BDA5-8574-D92F-1FA5-8F7BC001707A}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\camerafollow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{06C9BDA5-8574-D92F-1FA5-8F7BC001707A}|Assembly-CSharp.csproj|C:\\Users\\LENOVO LOQ\\Documents\\Ujicoba Unity\\Aetherfall\\assets\\script\\playermovment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{06C9BDA5-8574-D92F-1FA5-8F7BC001707A}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\playermovment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{06C9BDA5-8574-D92F-1FA5-8F7BC001707A}|Assembly-CSharp.csproj|C:\\Users\\LENOVO LOQ\\Documents\\Ujicoba Unity\\Aetherfall\\assets\\script\\bullet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{06C9BDA5-8574-D92F-1FA5-8F7BC001707A}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\bullet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -39,78 +35,64 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "LayerInfiniteLoop.cs",
-              "DocumentMoniker": "C:\\Users\\LENOVO LOQ\\Documents\\Ujicoba Unity\\Aetherfall\\Assets\\Script\\LayerInfiniteLoop.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\LayerInfiniteLoop.cs",
-              "ToolTip": "C:\\Users\\LENOVO LOQ\\Documents\\Ujicoba Unity\\Aetherfall\\Assets\\Script\\LayerInfiniteLoop.cs",
-              "RelativeToolTip": "Assets\\Script\\LayerInfiniteLoop.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAA8wCcAAAAAAAAAAAAAAA==",
+              "Title": "PlayerAttack.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO LOQ\\Documents\\Ujicoba Unity\\Aetherfall\\Assets\\Script\\PlayerAttack.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\PlayerAttack.cs",
+              "ToolTip": "C:\\Users\\LENOVO LOQ\\Documents\\Ujicoba Unity\\Aetherfall\\Assets\\Script\\PlayerAttack.cs",
+              "RelativeToolTip": "Assets\\Script\\PlayerAttack.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-14T04:51:03.539Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ParallaxLayer.cs",
-              "DocumentMoniker": "C:\\Users\\LENOVO LOQ\\Documents\\Ujicoba Unity\\Aetherfall\\Assets\\Script\\ParallaxLayer.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\ParallaxLayer.cs",
-              "ToolTip": "C:\\Users\\LENOVO LOQ\\Documents\\Ujicoba Unity\\Aetherfall\\Assets\\Script\\ParallaxLayer.cs",
-              "RelativeToolTip": "Assets\\Script\\ParallaxLayer.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAcwA8AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-14T04:05:56.13Z",
+              "WhenOpened": "2026-03-16T06:08:01.382Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "ParallaxCamera.cs",
-              "DocumentMoniker": "C:\\Users\\LENOVO LOQ\\Documents\\Ujicoba Unity\\Aetherfall\\Assets\\Script\\ParallaxCamera.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\ParallaxCamera.cs",
-              "ToolTip": "C:\\Users\\LENOVO LOQ\\Documents\\Ujicoba Unity\\Aetherfall\\Assets\\Script\\ParallaxCamera.cs",
-              "RelativeToolTip": "Assets\\Script\\ParallaxCamera.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAiwBwAAAABAAAAAAAAAA==",
+              "Title": "EnemyControler.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO LOQ\\Documents\\Ujicoba Unity\\Aetherfall\\Assets\\Script\\EnemyControler.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\EnemyControler.cs",
+              "ToolTip": "C:\\Users\\LENOVO LOQ\\Documents\\Ujicoba Unity\\Aetherfall\\Assets\\Script\\EnemyControler.cs",
+              "RelativeToolTip": "Assets\\Script\\EnemyControler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-14T04:00:25.912Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-16T04:34:53.952Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "ParallaxBackground.cs",
-              "DocumentMoniker": "C:\\Users\\LENOVO LOQ\\Documents\\Ujicoba Unity\\Aetherfall\\Assets\\Script\\ParallaxBackground.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\ParallaxBackground.cs",
-              "ToolTip": "C:\\Users\\LENOVO LOQ\\Documents\\Ujicoba Unity\\Aetherfall\\Assets\\Script\\ParallaxBackground.cs",
-              "RelativeToolTip": "Assets\\Script\\ParallaxBackground.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAEwCAAAAASAAAAAAAAAA==",
+              "Title": "LayerInfiniteLoop.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO LOQ\\Documents\\Ujicoba Unity\\Aetherfall\\Assets\\Script\\LayerInfiniteLoop.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\LayerInfiniteLoop.cs",
+              "ToolTip": "C:\\Users\\LENOVO LOQ\\Documents\\Ujicoba Unity\\Aetherfall\\Assets\\Script\\LayerInfiniteLoop.cs",
+              "RelativeToolTip": "Assets\\Script\\LayerInfiniteLoop.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAmwCcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-14T03:59:30.841Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-14T04:51:03.539Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "CameraFollow.cs",
-              "DocumentMoniker": "C:\\Users\\LENOVO LOQ\\Documents\\Ujicoba Unity\\Aetherfall\\Assets\\Script\\CameraFollow.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\CameraFollow.cs",
-              "ToolTip": "C:\\Users\\LENOVO LOQ\\Documents\\Ujicoba Unity\\Aetherfall\\Assets\\Script\\CameraFollow.cs",
-              "RelativeToolTip": "Assets\\Script\\CameraFollow.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAmwCUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-10T04:11:57.448Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "PlayerMovment.cs",
               "DocumentMoniker": "C:\\Users\\LENOVO LOQ\\Documents\\Ujicoba Unity\\Aetherfall\\Assets\\Script\\PlayerMovment.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\PlayerMovment.cs",
               "ToolTip": "C:\\Users\\LENOVO LOQ\\Documents\\Ujicoba Unity\\Aetherfall\\Assets\\Script\\PlayerMovment.cs",
               "RelativeToolTip": "Assets\\Script\\PlayerMovment.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAQwB8AAAAvAAAAAAAAAA==",
+              "ViewState": "AgIAABkAAAAAAAAAAAA2wCkAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-10T02:54:03.021Z"
+              "WhenOpened": "2026-02-10T02:54:03.021Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Bullet.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO LOQ\\Documents\\Ujicoba Unity\\Aetherfall\\Assets\\Script\\Bullet.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\Bullet.cs",
+              "ToolTip": "C:\\Users\\LENOVO LOQ\\Documents\\Ujicoba Unity\\Aetherfall\\Assets\\Script\\Bullet.cs",
+              "RelativeToolTip": "Assets\\Script\\Bullet.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-16T03:18:35.116Z"
             }
           ]
         }

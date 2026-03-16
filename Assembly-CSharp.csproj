@@ -62,10 +62,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Script\CameraFollow.cs" />
+    <Compile Include="Assets\Script\PlayerAttack.cs" />
+    <Compile Include="Assets\Script\Bullet.cs" />
     <Compile Include="Assets\Script\ParallaxLayer.cs" />
     <Compile Include="Assets\Script\ParallaxBackground.cs" />
     <Compile Include="Assets\Script\LayerInfiniteLoop.cs" />
     <Compile Include="Assets\Script\PlayerMovment.cs" />
+    <Compile Include="Assets\Script\EnemyControler.cs" />
     <Compile Include="Assets\Script\ParallaxCamera.cs" />
   </ItemGroup>
   <ItemGroup>
