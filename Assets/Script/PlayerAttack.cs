@@ -1,4 +1,4 @@
-using UnityEngine;
+    using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -6,7 +6,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void Attack()
     {
-        anim.SetTrigger("isAttack");
+        anim.SetTrigger("isAttacking");
     }
 
 }

@@ -1,34 +1,35 @@
 using UnityEngine;
-using System.Collections;
+
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] private float speed = 2;
-    [SerializeField] private float damage = 2;
-    [SerializeField] private float dieTime = 5;
-    public string targetTag = "Enemy";
-    private Vector2 direction;
-    private Rigidbody2D rb2;
-    void Start()
+    public string targetTag;
+    private float damage;
+
+    public void Launch(Vector2 direction, string target, float speed, float dmg)
     {
-        rb2 = GetComponent<Rigidbody2D>();
+        targetTag = target;
+        damage = dmg;
+
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        rb.linearVelocity = direction * speed; // harus velocity, bukan linearVelocity
     }
-    void Update()
+
+    // Untuk deteksi collision
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        rb2.linearVelocity = direction.normalized * speed;
-        dieTime -= Time.deltaTime;
-        if (dieTime < 0)
+        // Bisa kena ground atau enemy/player
+        if (collision.CompareTag("Ground") || collision.CompareTag(targetTag))
         {
             Destroy(gameObject);
         }
     }
-    public void Launch(Vector2 direction, string targetTag, float speed, float
-    damage)
+
+    // Optional: auto destroy jika keluar layar
+    private void OnBecameInvisible()
     {
-        this.direction = direction;
-        this.speed = speed;
-        this.damage = damage;
-        this.targetTag = targetTag;
+        Destroy(gameObject);
     }
+
     public float GetDamage()
     {
         return damage;

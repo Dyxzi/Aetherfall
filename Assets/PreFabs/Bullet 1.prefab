@@ -197,7 +197,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8003a8bee742b1a4bb520d8dba9fb776, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
-  damage: 2
-  dieTime: 5
-  targetTag: Payer
+  targetTag: Player

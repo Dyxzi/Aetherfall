@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2357568222196503778}
   - component: {fileID: 2436060579230333230}
+  - component: {fileID: 1162927418374384552}
   m_Layer: 0
   m_Name: Graphic
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -87,6 +88,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1162927418374384552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 977742095496109482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8003a8bee742b1a4bb520d8dba9fb776, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetTag: Enemy
 --- !u!1 &3418974014033291443
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,7 +161,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!58 &4742670878279954586
 CircleCollider2D:
@@ -197,7 +211,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8003a8bee742b1a4bb520d8dba9fb776, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
-  damage: 2
-  dieTime: 5
   targetTag: Enemy
