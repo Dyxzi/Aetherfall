@@ -13,7 +13,7 @@ public class EnemyMelee : EnemyControler
     [SerializeField] private Transform attackPoint;
     [SerializeField] private float attackRadius = 1f;
     [SerializeField] private LayerMask playerLayer;
-    [SerializeField] private Vector2 attackOffset;
+    [SerializeField] private Vector2 attackOffset = new Vector2(1f, 0f); // 🔥 default
 
     [Header("Component")]
     [SerializeField] private SpriteRenderer graphic;
@@ -27,21 +27,32 @@ public class EnemyMelee : EnemyControler
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
         startPosition = transform.position;
     }
 
     protected override void Movement()
     {
-        if (attackTarget == null) return;
+        if (attackPoint == null) return;
+
+        // 🔥 kalau tidak ada target tetap patrol
+        if (attackTarget == null)
+        {
+            UpdateAttackPoint(patrolDirection);
+            Patrol();
+            return;
+        }
 
         float distance = Vector2.Distance(transform.position, attackTarget.position);
+        float distanceX = attackTarget.position.x - transform.position.x;
 
         attackTimer -= Time.deltaTime;
-        Vector2 offset = attackOffset;
-        offset.x *= graphic.flipX ? -1 : 1;
 
-        attackPoint.localPosition = offset;
+        // 🔥 tentukan arah
+        int direction = distanceX > 0 ? 1 : -1;
+
+        // 🔥 update posisi hitbox (FIX UTAMA)
+        UpdateAttackPoint(direction);
 
         if (distance <= attackDistance)
         {
@@ -49,7 +60,7 @@ public class EnemyMelee : EnemyControler
         }
         else if (distance <= detectDistance)
         {
-            Chase();
+            Chase(direction, distanceX);
         }
         else
         {
@@ -57,14 +68,30 @@ public class EnemyMelee : EnemyControler
         }
     }
 
+    // ---------------- UPDATE HITBOX ----------------
+    void UpdateAttackPoint(int direction)
+    {
+        attackPoint.localPosition = new Vector2(
+            attackOffset.x * direction,
+            attackOffset.y
+        );
+    }
+
     // ---------------- PATROL ----------------
     void Patrol()
     {
         rb.linearVelocity = new Vector2(patrolDirection * moveSpeed, rb.linearVelocity.y);
 
-        if (Mathf.Abs(transform.position.x - startPosition.x) > patrolDistance)
+        float dist = transform.position.x - startPosition.x;
+
+        // 🔥 hanya balik arah jika sudah melewati batas DAN arah sesuai
+        if (dist > patrolDistance && patrolDirection == 1)
         {
-            patrolDirection *= -1;
+            patrolDirection = -1;
+        }
+        else if (dist < -patrolDistance && patrolDirection == -1)
+        {
+            patrolDirection = 1;
         }
 
         graphic.flipX = patrolDirection < 0;
@@ -74,9 +101,14 @@ public class EnemyMelee : EnemyControler
     }
 
     // ---------------- CHASE ----------------
-    void Chase()
+    void Chase(int direction, float distanceX)
     {
-        float direction = attackTarget.position.x > transform.position.x ? 1 : -1;
+        // 🔥 DEAD ZONE (anti glitch)
+        if (Mathf.Abs(distanceX) < 0.2f)
+        {
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            return;
+        }
 
         rb.linearVelocity = new Vector2(direction * moveSpeed, rb.linearVelocity.y);
 
@@ -112,7 +144,11 @@ public class EnemyMelee : EnemyControler
     {
         yield return new WaitForSeconds(0.2f);
 
-        Collider2D hit = Physics2D.OverlapCircle(attackPoint.position, attackRadius, playerLayer);
+        Collider2D hit = Physics2D.OverlapCircle(
+            attackPoint.position,
+            attackRadius,
+            playerLayer
+        );
 
         if (hit != null)
         {
@@ -125,7 +161,6 @@ public class EnemyMelee : EnemyControler
         }
     }
 
-    // Debug hitbox
     void OnDrawGizmosSelected()
     {
         if (attackPoint != null)

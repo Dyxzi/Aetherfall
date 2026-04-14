@@ -1,37 +1,32 @@
-
 using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
     public Transform player;
-    public float smoothSpeed;
+    public float smoothSpeed = 5f;
     public Vector3 offset;
 
-    public Transform backgound;
-    public float bgWidth;
+    public float minX;
+    public float maxX;
+    public float minY;
+    public float maxY;
 
-    // Update is called once per frame
     void LateUpdate()
     {
-        if (player == null)
-        {
-            return;
-        }
+        if (player == null) return;
+
         Vector3 camPos = player.position + offset;
-        Vector3 smoothMove = Vector3.Lerp(transform.position, camPos, smoothSpeed);
-        transform.position = smoothMove;
 
-        if (backgound == null)
-        {
-            return;
-        }
-        float camX = transform.position.x;
-        float bgX = backgound.position.x;
+        float camHalfHeight = Camera.main.orthographicSize;
+        float camHalfWidth = camHalfHeight * Screen.width / Screen.height;
 
-        if (Mathf.Abs(camX - bgX) >= bgWidth)
-        {
-            float offsetX = (camX - bgX) % bgWidth;
-            backgound.position = new Vector3(camX + offsetX, backgound.position.y, backgound.position.z);
-        }
-    } //test
+        camPos.x = Mathf.Clamp(camPos.x, minX + camHalfWidth, maxX - camHalfWidth);
+        camPos.y = Mathf.Clamp(camPos.y, minY + camHalfHeight, maxY - camHalfHeight);
+
+        transform.position = Vector3.Lerp(
+            transform.position,
+            camPos,
+            smoothSpeed * Time.deltaTime
+        );
+    }
 }

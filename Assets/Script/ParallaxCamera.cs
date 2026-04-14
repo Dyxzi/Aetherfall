@@ -13,17 +13,20 @@ public class ParallaxCamera : MonoBehaviour
         oldPosition = transform.position.x;
     }
 
-    void Update()
+    void LateUpdate() // 🔥 PENTING: pakai LateUpdate
     {
-        if (transform.position.x != oldPosition)
+        float newPosition = transform.position.x;
+
+        if (newPosition != oldPosition)
         {
+            float delta = newPosition - oldPosition; // 🔥 arah benar
+
             if (onCameraTranslate != null)
             {
-                float delta = oldPosition - transform.position.x;
                 onCameraTranslate(delta);
             }
 
-            oldPosition = transform.position.x;
+            oldPosition = newPosition;
         }
     }
 }

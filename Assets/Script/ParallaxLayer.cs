@@ -3,14 +3,26 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class ParallaxLayer : MonoBehaviour
 {
-    public float parallaxFactor;
+    public float parallaxFactor = 0.5f;
 
-    public void Move(float delta)
+    void Start()
     {
-        Vector3 newPos = transform.localPosition;
-        newPos.x -= delta * parallaxFactor;
+        if (Camera.main == null) return;
 
-        transform.localPosition = newPos;
+        ParallaxCamera parallaxCam = Camera.main.GetComponent<ParallaxCamera>();
+
+        if (parallaxCam != null)
+        {
+            parallaxCam.onCameraTranslate += Move;
+        }
     }
 
+    // 🔥 WAJIB PUBLIC
+    public void Move(float delta)
+    {
+        Vector3 newPos = transform.position;
+        newPos.x += delta * parallaxFactor;
+
+        transform.position = newPos;
+    }
 }

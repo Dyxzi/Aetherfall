@@ -6305,7 +6305,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 993394194}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GunPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12184,7 +12184,7 @@ GameObject:
   - component: {fileID: 1883954482}
   - component: {fileID: 1883954481}
   - component: {fileID: 1883954480}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -12245,6 +12245,9 @@ MonoBehaviour:
   health: 100
   healthMax: 0
   canBeMoved: 1
+  knockbackForce: 8
+  knockbackDuration: 0.2
+  invincibleTime: 0.5
   playerAttack: {fileID: 1883954480}
   gunPoint: {fileID: 993394194}
   bulletPrefab: {fileID: 3418974014033291443, guid: a9872d23d186dba4e9351609738c1ca5, type: 3}
@@ -12400,7 +12403,8 @@ GameObject:
   - component: {fileID: 1891098546}
   - component: {fileID: 1891098545}
   - component: {fileID: 1891098547}
-  m_Layer: 0
+  - component: {fileID: 1891098548}
+  m_Layer: 3
   m_Name: Ground
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -83686,7 +83690,7 @@ TilemapCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: ab5049a94646ee749addc552645382ad, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -83714,6 +83718,33 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
+--- !u!50 &1891098548
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1891098543}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 6200000, guid: ab5049a94646ee749addc552645382ad, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1898578458
 GameObject:
   m_ObjectHideFlags: 0
@@ -84160,7 +84191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e78ec2c633842d94d8b9dafce6a51a34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 1883954486}
   smoothSpeed: 0.1
   offset: {x: 0, y: 1, z: -10}
   backgound: {fileID: 1379715573}
