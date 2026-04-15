@@ -24,7 +24,6 @@ public class PlayerMovment : MonoBehaviour
     [Header("Knockback")]
     [SerializeField] private float knockbackForce = 8f;
     [SerializeField] private float knockbackDuration = 0.2f;
-
     private float knockbackTimer = 0f;
 
     [Header("Invincible")]
@@ -66,19 +65,15 @@ public class PlayerMovment : MonoBehaviour
             Jump();
             Shoot();
         }
+
         if (knockbackTimer > 0)
         {
             knockbackTimer -= Time.deltaTime;
-        return;
-        }
-        if (invincibleTimer > 0)
-            invincibleTimer -= Time.deltaTime;
-
-        if (knockbackTimer > 0)
-        {   
-            knockbackTimer -= Time.deltaTime;
             return;
         }
+
+        if (invincibleTimer > 0)
+            invincibleTimer -= Time.deltaTime;
 
         if (shootTimer > 0f)
             shootTimer -= Time.deltaTime;
@@ -109,7 +104,6 @@ public class PlayerMovment : MonoBehaviour
     // ---------------- Jump ----------------
     void Jump()
     {
-        // Tambahan dari script lama (raycast)
         RaycastHit2D ray = Physics2D.Raycast(transform.position, Vector2.down, 10, LayerMask.GetMask("Obstacle"));
 
         if (ray && ray.distance < minGroundDistance)
@@ -155,29 +149,24 @@ public class PlayerMovment : MonoBehaviour
 
             int direction = playerSprite.flipX ? -1 : 1;
 
-            // Hitung posisi spawn bullet berdasarkan arah player
-            Vector2 gunPos = (Vector2)transform.position + 
+            Vector2 gunPos = (Vector2)transform.position +
                  new Vector2(Mathf.Abs(gunOffset.x) * direction, gunOffset.y);
 
             GameObject bullet = Instantiate(bulletPrefab, gunPos, Quaternion.identity);
 
-            // Set velocity bullet sesuai arah
             Bullet b = bullet.GetComponent<Bullet>();
             if (b != null)
             {
                 b.Launch(new Vector2(direction, 0), "Enemy", bulletSpeed, attack);
             }
 
-            // Flip sprite bullet kalau perlu
             SpriteRenderer bulletSprite = bullet.GetComponentInChildren<SpriteRenderer>();
             if (bulletSprite != null)
                 bulletSprite.flipX = playerSprite.flipX;
 
-
-            // Animasi menyerang
             if (anim != null)
                 anim.SetTrigger("isAttacking");
-            
+
             Destroy(bullet, 5f);
         }
     }
@@ -187,7 +176,6 @@ public class PlayerMovment : MonoBehaviour
     {
         if (invincibleTimer > 0) return;
 
-        // Anti bug jarak
         if (Vector2.Distance(transform.position, hitSource) > 3f)
             return;
 
@@ -212,6 +200,7 @@ public class PlayerMovment : MonoBehaviour
             Die();
         }
     }
+
     void FallDie()
     {
         if (transform.position.y < -25)
@@ -231,8 +220,17 @@ public class PlayerMovment : MonoBehaviour
         GameManager.GameOver();
     }
 
+    // 🔥 FINAL TRIGGER SYSTEM (BULLET + SPIKE)
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // 🔥 KENA DURI
+        if (collision.CompareTag("Spike"))
+        {
+            Die();
+            return;
+        }
+
+        // 🔫 KENA PELURU
         if (collision.CompareTag("Bullet"))
         {
             Bullet bullet = collision.GetComponent<Bullet>();
