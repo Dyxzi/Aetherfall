@@ -43,6 +43,17 @@ public class PlayerMovment : MonoBehaviour
     [Header("Ground Check")]
     [SerializeField] private float minGroundDistance = 1.5f;
 
+    // 🔥 WALL SYSTEM
+    [Header("Wall System")]
+    [SerializeField] private float wallCheckDistance = 0.6f;
+    [SerializeField] private LayerMask wallLayer;
+    [SerializeField] private float wallSlideSpeed = 2f;
+    [SerializeField] private float wallStickTime = 1.5f;
+
+    private bool isTouchingWall;
+    private bool isWallSliding;
+    private float wallTimer;
+
     void Awake()
     {
         Instance = this;
@@ -55,6 +66,8 @@ public class PlayerMovment : MonoBehaviour
 
         if (playerSprite == null)
             playerSprite = GetComponent<SpriteRenderer>();
+
+        wallTimer = wallStickTime;
     }
 
     void Update()
@@ -65,6 +78,10 @@ public class PlayerMovment : MonoBehaviour
             Jump();
             Shoot();
         }
+
+        // 🔥 WALL SYSTEM
+        CheckWall();
+        WallSlide();
 
         if (knockbackTimer > 0)
         {
@@ -88,7 +105,10 @@ public class PlayerMovment : MonoBehaviour
     void Movement()
     {
         float x = Input.GetAxisRaw("Horizontal");
-        rb.linearVelocity = new Vector2(x * moveSpeed, rb.linearVelocity.y);
+
+        // 🔥 kalau wall slide, jangan gerak bebas
+        if (!isWallSliding)
+            rb.linearVelocity = new Vector2(x * moveSpeed, rb.linearVelocity.y);
 
         if (x < 0)
             playerSprite.flipX = true;
@@ -111,9 +131,50 @@ public class PlayerMovment : MonoBehaviour
         else
             isGrounded = false;
 
+        // 🔥 WALL JUMP
+        if (isWallSliding && Input.GetKeyDown(KeyCode.Space))
+        {
+            float direction = playerSprite.flipX ? 1 : -1;
+            rb.linearVelocity = new Vector2(direction * moveSpeed, jumpForce);
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+        }
+    }
+
+    // 🔥 CEK TEMBOK
+    void CheckWall()
+    {
+        Vector2 direction = playerSprite.flipX ? Vector2.left : Vector2.right;
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, wallCheckDistance, wallLayer);
+
+        isTouchingWall = hit;
+    }
+
+    // 🔥 WALL SLIDE
+    void WallSlide()
+    {
+        if (isTouchingWall && !isGrounded && rb.linearVelocity.y < 0)
+        {
+            isWallSliding = true;
+
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, -wallSlideSpeed);
+
+            wallTimer -= Time.deltaTime;
+
+            if (wallTimer <= 0)
+            {
+                isWallSliding = false;
+            }
+        }
+        else
+        {
+            isWallSliding = false;
+            wallTimer = wallStickTime;
         }
     }
 
@@ -122,7 +183,6 @@ public class PlayerMovment : MonoBehaviour
         if (collision.collider.CompareTag("Ground"))
             isGrounded = true;
 
-        // Damage dari enemy
         if (collision.collider.CompareTag("Enemy"))
         {
             EnemyControler enemy = collision.collider.GetComponent<EnemyControler>();
@@ -223,14 +283,12 @@ public class PlayerMovment : MonoBehaviour
     // 🔥 FINAL TRIGGER SYSTEM (BULLET + SPIKE)
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // 🔥 KENA DURI
         if (collision.CompareTag("Spike"))
         {
             Die();
             return;
         }
 
-        // 🔫 KENA PELURU
         if (collision.CompareTag("Bullet"))
         {
             Bullet bullet = collision.GetComponent<Bullet>();

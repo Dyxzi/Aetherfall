@@ -6,27 +6,29 @@ public class CameraFollow : MonoBehaviour
     public float smoothSpeed = 5f;
     public Vector3 offset;
 
-    public float minX;
-    public float maxX;
-    public float minY;
-    public float maxY;
+    // 🔥 batas camera
+    public Vector2 minBounds;
+    public Vector2 maxBounds;
 
     void LateUpdate()
     {
         if (player == null) return;
 
-        Vector3 camPos = player.position + offset;
+        Vector3 targetPos = player.position + offset;
 
-        float camHalfHeight = Camera.main.orthographicSize;
-        float camHalfWidth = camHalfHeight * Screen.width / Screen.height;
+        // 🔥 clamp posisi camera
+        float clampedX = Mathf.Clamp(targetPos.x, minBounds.x, maxBounds.x);
+        float clampedY = Mathf.Clamp(targetPos.y, minBounds.y, maxBounds.y);
 
-        camPos.x = Mathf.Clamp(camPos.x, minX + camHalfWidth, maxX - camHalfWidth);
-        camPos.y = Mathf.Clamp(camPos.y, minY + camHalfHeight, maxY - camHalfHeight);
+        Vector3 smoothPos = Vector3.Lerp(transform.position, new Vector3(clampedX, clampedY, transform.position.z), smoothSpeed * Time.deltaTime);
 
-        transform.position = Vector3.Lerp(
-            transform.position,
-            camPos,
-            smoothSpeed * Time.deltaTime
-        );
+        transform.position = smoothPos;
+    }
+
+    // 🔥 dipanggil dari trigger
+    public void SetBounds(Vector2 min, Vector2 max)
+    {
+        minBounds = min;
+        maxBounds = max;
     }
 }

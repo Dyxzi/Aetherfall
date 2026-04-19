@@ -1,28 +1,29 @@
 using UnityEngine;
 
-[ExecuteInEditMode]
 public class ParallaxLayer : MonoBehaviour
 {
+    [Range(0f, 1f)]
     public float parallaxFactor = 0.5f;
+
+    private Transform cam;
+    private Vector3 startPosition;
 
     void Start()
     {
-        if (Camera.main == null) return;
+        cam = Camera.main.transform;
 
-        ParallaxCamera parallaxCam = Camera.main.GetComponent<ParallaxCamera>();
-
-        if (parallaxCam != null)
-        {
-            parallaxCam.onCameraTranslate += Move;
-        }
+        // 🔥 FIX supaya tidak loncat saat play
+        startPosition = transform.position - new Vector3(cam.position.x * parallaxFactor, 0, 0);
     }
 
-    // 🔥 WAJIB PUBLIC
-    public void Move(float delta)
+    void LateUpdate()
     {
-        Vector3 newPos = transform.position;
-        newPos.x += delta * parallaxFactor;
+        float newX = startPosition.x + cam.position.x * parallaxFactor;
 
-        transform.position = newPos;
+        transform.position = new Vector3(
+            newX,
+            transform.position.y,
+            transform.position.z
+        );
     }
 }
