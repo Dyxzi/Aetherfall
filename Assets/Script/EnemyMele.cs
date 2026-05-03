@@ -13,29 +13,26 @@ public class EnemyMelee : EnemyControler
     [SerializeField] private Transform attackPoint;
     [SerializeField] private float attackRadius = 1f;
     [SerializeField] private LayerMask playerLayer;
-    [SerializeField] private Vector2 attackOffset = new Vector2(1f, 0f); // 🔥 default
+    [SerializeField] private Vector2 attackOffset = new Vector2(1f, 0f);
 
-    [Header("Component")]
-    [SerializeField] private SpriteRenderer graphic;
-    private Rigidbody2D rb;
-    private Animator anim;
-
+    // Variabel graphic, rb, dan anim DIHAPUS dari sini karena sudah ada di EnemyControler
+    
     private float attackTimer = 0f;
     private Vector3 startPosition;
     private int patrolDirection = 1;
 
-    void Start()
+    protected override void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        anim = GetComponentInChildren<Animator>();
+        // Memanggil fungsi Start milik induk untuk mengisi rb, anim, dan graphic
+        base.Start(); 
         startPosition = transform.position;
     }
 
     protected override void Movement()
     {
+        if (isDead) return; // Mencegah gerak saat mati
         if (attackPoint == null) return;
 
-        // 🔥 kalau tidak ada target tetap patrol
         if (attackTarget == null)
         {
             UpdateAttackPoint(patrolDirection);
@@ -47,11 +44,8 @@ public class EnemyMelee : EnemyControler
         float distanceX = attackTarget.position.x - transform.position.x;
 
         attackTimer -= Time.deltaTime;
-
-        // 🔥 tentukan arah
         int direction = distanceX > 0 ? 1 : -1;
 
-        // 🔥 update posisi hitbox (FIX UTAMA)
         UpdateAttackPoint(direction);
 
         if (distance <= attackDistance)
@@ -68,74 +62,48 @@ public class EnemyMelee : EnemyControler
         }
     }
 
-    // ---------------- UPDATE HITBOX ----------------
     void UpdateAttackPoint(int direction)
     {
-        attackPoint.localPosition = new Vector2(
-            attackOffset.x * direction,
-            attackOffset.y
-        );
+        attackPoint.localPosition = new Vector2(attackOffset.x * direction, attackOffset.y);
     }
 
-    // ---------------- PATROL ----------------
     void Patrol()
     {
         rb.linearVelocity = new Vector2(patrolDirection * moveSpeed, rb.linearVelocity.y);
-
         float dist = transform.position.x - startPosition.x;
 
-        // 🔥 hanya balik arah jika sudah melewati batas DAN arah sesuai
-        if (dist > patrolDistance && patrolDirection == 1)
-        {
-            patrolDirection = -1;
-        }
-        else if (dist < -patrolDistance && patrolDirection == -1)
-        {
-            patrolDirection = 1;
-        }
+        if (dist > patrolDistance && patrolDirection == 1) patrolDirection = -1;
+        else if (dist < -patrolDistance && patrolDirection == -1) patrolDirection = 1;
 
-        graphic.flipX = patrolDirection < 0;
-
-        if (anim != null)
-            anim.SetBool("Idle", true);
+        if (graphic != null) graphic.flipX = patrolDirection < 0;
+        if (anim != null) anim.SetBool("Idle", true);
     }
 
-    // ---------------- CHASE ----------------
     void Chase(int direction, float distanceX)
     {
-        // 🔥 DEAD ZONE (anti glitch)
         if (Mathf.Abs(distanceX) < 0.2f)
         {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
             return;
         }
-
         rb.linearVelocity = new Vector2(direction * moveSpeed, rb.linearVelocity.y);
-
-        graphic.flipX = direction < 0;
-
-        if (anim != null)
-            anim.SetBool("Idle", true);
+        if (graphic != null) graphic.flipX = direction < 0;
+        if (anim != null) anim.SetBool("Idle", true);
     }
 
-    // ---------------- ATTACK ----------------
     void Attack()
     {
         rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
-
-        if (anim != null)
-            anim.SetBool("Idle", false);
+        if (anim != null) anim.SetBool("Idle", false);
 
         if (attackTimer <= 0)
         {
             attackTimer = attackCooldown;
-
             if (anim != null)
             {
                 anim.ResetTrigger("Attack");
                 anim.SetTrigger("Attack");
             }
-
             StartCoroutine(DoDamage());
         }
     }
@@ -143,21 +111,11 @@ public class EnemyMelee : EnemyControler
     IEnumerator DoDamage()
     {
         yield return new WaitForSeconds(0.2f);
-
-        Collider2D hit = Physics2D.OverlapCircle(
-            attackPoint.position,
-            attackRadius,
-            playerLayer
-        );
-
+        Collider2D hit = Physics2D.OverlapCircle(attackPoint.position, attackRadius, playerLayer);
         if (hit != null)
         {
             PlayerMovment player = hit.GetComponent<PlayerMovment>();
-
-            if (player != null)
-            {
-                player.DamagedBy(attack, attackPoint.position);
-            }
+            if (player != null) player.DamagedBy(attack, attackPoint.position);
         }
     }
 

@@ -16,10 +16,16 @@ public class UIManager : MonoBehaviour
 
     public PlayerMovment player;
 
-    // 🔥 TAMBAHAN (FINISH SYSTEM)
+    // 🔥 FINISH SYSTEM
     [Header("Finish")]
     public Transform finishPoint;
     public float finishDistance = 1.5f;
+
+    // 🔊 SETTINGS AUDIO
+    [Header("Settings")]
+    public Slider musicSlider;
+    public Slider sfxSlider;
+    public AudioSource musicSource; // opsional
 
     void Start()
     {
@@ -27,7 +33,31 @@ public class UIManager : MonoBehaviour
         {
             playerHealthBar.rectTransform.pivot = new Vector2(0, 0.5f);
         }
+
+        // 🔊 LOAD SETTINGS
+        if (musicSlider != null)
+        {
+            float music = PlayerPrefs.GetFloat("Music", 1f);
+            musicSlider.value = music;
+
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.SetMusicVolume(music);
+            }
+        }
+
+        if (sfxSlider != null)
+        {
+            float sfx = PlayerPrefs.GetFloat("SFX", 1f);
+            sfxSlider.value = sfx;
+
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.SetSFXVolume(sfx);
+            }
+        }
     }
+
     void Update()
     {
         // Enemy progress
@@ -59,7 +89,7 @@ public class UIManager : MonoBehaviour
         if (pauseUI)
             pauseUI.SetActive(GameManager.isPaused);
 
-        // 🔥 AUTO PAUSE SYSTEM
+        // AUTO PAUSE
         CheckGameState();
     }
 
@@ -82,7 +112,7 @@ public class UIManager : MonoBehaviour
             Time.timeScale = 1f;
     }
 
-    // 🔥 FUNCTION BARU (FINISH SYSTEM)
+    // 🔥 FINISH SYSTEM
     void CheckFinish()
     {
         if (player == null || finishPoint == null) return;
@@ -99,6 +129,27 @@ public class UIManager : MonoBehaviour
             {
                 Debug.Log("Kalahkan semua musuh dulu!");
             }
+        }
+    }
+
+    // 🔊 SETTINGS FUNCTION
+    public void SetMusic(float value)
+    {
+        PlayerPrefs.SetFloat("Music", value);
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.SetMusicVolume(value);
+        }
+    }
+
+    public void SetSFX(float value)
+    {
+        PlayerPrefs.SetFloat("SFX", value);
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.SetSFXVolume(value);
         }
     }
 }

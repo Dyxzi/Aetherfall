@@ -7,6 +7,7 @@ public class EnemyControler : MonoBehaviour
     public float health = 1;
     public float attack = 5;
     public Transform attackTarget;
+    protected bool isDead = false; // 🔥 Tambahkan ini untuk mencegah skor double
 
     [Header("Component")]
     protected Animator anim;
@@ -25,6 +26,9 @@ public class EnemyControler : MonoBehaviour
 
     void Update()
     {
+        // Jika sudah mati, berhenti menjalankan logika Movement/Update
+        if (isDead) return; 
+
         Movement();
         FallDie();
     }
@@ -35,6 +39,8 @@ public class EnemyControler : MonoBehaviour
 
     public void DamagedBy(float damage)
     {
+        if (isDead) return; // Mencegah musuh dipukul saat sedang proses mati
+
         health -= damage;
 
         if (anim != null)
@@ -49,7 +55,8 @@ public class EnemyControler : MonoBehaviour
 
     void FallDie()
     {
-        if (transform.position.y < -20)
+        // Tambahkan cek !isDead agar tidak panggil Die() berkali-kali saat jatuh
+        if (transform.position.y < -20 && !isDead)
         {
             Die();
         }
@@ -57,11 +64,21 @@ public class EnemyControler : MonoBehaviour
 
     protected virtual void Die()
     {
+        if (isDead) return; // KUNCI UTAMA: Jika sudah mati, abaikan panggilan Die() berikutnya
+
+        isDead = true; // Tandai sudah mati
+
+        // Matikan collider agar peluru lain lewat saja/tidak menabrak lagi
+        Collider2D col = GetComponent<Collider2D>();
+        if (col != null) col.enabled = false;
+
         if (anim != null)
             anim.SetTrigger("Die");
 
-        Destroy(gameObject, 0.3f);
+        // Skor hanya dipanggil SATU KALI di sini
         ScoreManager.DefeatEnemy();
+
+        Destroy(gameObject, 0.3f);
     }
 
     public float GetAttackDamage()
@@ -71,6 +88,8 @@ public class EnemyControler : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (isDead) return; // Jika sudah mati, peluru tidak bisa mengenai lagi
+
         if (collision.CompareTag("Bullet"))
         {
             Bullet bullet = collision.GetComponent<Bullet>();
@@ -78,6 +97,8 @@ public class EnemyControler : MonoBehaviour
             {
                 float damage = bullet.GetDamage();
                 DamagedBy(damage);
+                
+                // Hancurkan peluru segera
                 Destroy(collision.gameObject);
             }
         }
