@@ -19,8 +19,8 @@ public class ScoreManager : MonoBehaviour
     private void Start()
     {
         // Mencari semua enemy di awal level
-        EnemyControler[] enemyControllers = FindObjectsOfType<EnemyControler>();
-
+        EnemyControler[] enemyControllers = FindObjectsByType<EnemyControler>(FindObjectsSortMode.None);
+        
         targetEnemyProgress = enemyControllers.Length;
         currentEnemyProgress = 0;
     }

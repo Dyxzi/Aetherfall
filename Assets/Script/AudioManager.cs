@@ -34,6 +34,16 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
+        if (musicSource == null)
+        {
+            musicSource = transform.GetChild(0).GetComponent<AudioSource>();
+        }
+
+        if (sfxSource == null)
+        {
+            sfxSource = transform.GetChild(1).GetComponent<AudioSource>();
+        }
+
         // 🔊 Load volume
         float music = PlayerPrefs.GetFloat("Music", 1f);
         float sfx = PlayerPrefs.GetFloat("SFX", 1f);
@@ -83,6 +93,14 @@ public class AudioManager : MonoBehaviour
     public void PlaySFX(AudioClip clip)
     {
         if (clip != null)
+        {
+            sfxSource.PlayOneShot(clip);
+        }
+    }
+
+    public void PlayButtonSound(AudioClip clip)
+    {
+        if (clip != null && sfxSource != null)
         {
             sfxSource.PlayOneShot(clip);
         }

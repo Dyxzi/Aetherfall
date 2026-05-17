@@ -43,7 +43,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: ec264499f61ed0a4eb2c1a070b3fc9de, type: 3}
+  m_Resource: {fileID: 8300000, guid: 3687041954d0f36478c95ab1e2b1d787, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.3
   m_Pitch: 1
@@ -177,6 +177,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 3120880597451607805}
   sfxSource: {fileID: 0}
+  mainMenuMusic: {fileID: 8300000, guid: 02ed9690bed4261468a6fdaf6ead1c04, type: 3}
+  level1Music: {fileID: 8300000, guid: ec264499f61ed0a4eb2c1a070b3fc9de, type: 3}
+  level2Music: {fileID: 8300000, guid: 3687041954d0f36478c95ab1e2b1d787, type: 3}
+  level3Music: {fileID: 0}
+  buttonClick: {fileID: 0}
+  shootSFX: {fileID: 0}
+  hitSFX: {fileID: 0}
 --- !u!1 &8196265423375698372
 GameObject:
   m_ObjectHideFlags: 0

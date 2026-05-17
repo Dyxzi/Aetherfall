@@ -37,7 +37,7 @@ public class EnemyControler : MonoBehaviour
     {
     }
 
-    public void DamagedBy(float damage)
+    public virtual void DamagedBy(float damage)
     {
         if (isDead) return; // Mencegah musuh dipukul saat sedang proses mati
 

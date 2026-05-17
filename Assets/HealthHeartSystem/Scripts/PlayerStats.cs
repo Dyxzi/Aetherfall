@@ -1,8 +1,4 @@
-﻿/*
- *  Author: ariel oliveira [o.arielg@gmail.com]
- */
-
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -16,7 +12,7 @@ public class PlayerStats : MonoBehaviour
         get
         {
             if (instance == null)
-                instance = FindObjectOfType<PlayerStats>();
+                instance = FindFirstObjectByType<PlayerStats>();
             return instance;
         }
     }

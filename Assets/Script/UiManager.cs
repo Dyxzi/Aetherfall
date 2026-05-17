@@ -35,6 +35,7 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 1f;
         // 🔥 Health bar pivot
         if (playerHealthBar)
         {
@@ -83,7 +84,7 @@ public class UIManager : MonoBehaviour
         if (enemyProgressText)
         {
             enemyProgressText.text =
-            "☠ " +
+            " " +
             ScoreManager.currentEnemyProgress +
             " / " +
             ScoreManager.targetEnemyProgress;
