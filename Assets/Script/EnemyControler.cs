@@ -17,6 +17,9 @@ public class EnemyControler : MonoBehaviour
     [Header("Configuration")]
     [SerializeField] protected float moveSpeed = 2.5f;
 
+    [Header("Drop")]
+    public GameObject crystalPrefab;
+
     protected virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -76,8 +79,13 @@ public class EnemyControler : MonoBehaviour
             anim.SetTrigger("Die");
 
         // Skor hanya dipanggil SATU KALI di sini
-        ScoreManager.DefeatEnemy();
 
+        ScoreManager.DefeatEnemy();
+        Instantiate(
+            crystalPrefab,
+            transform.position,
+            Quaternion.identity
+        );
         Destroy(gameObject, 0.3f);
     }
 

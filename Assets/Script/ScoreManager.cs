@@ -6,6 +6,7 @@ public class ScoreManager : MonoBehaviour
 
     public static int currentEnemyProgress { get; private set; }
     public static int targetEnemyProgress { get; private set; }
+    public static int crystal = 0;
 
     [Header("Level Settings")]
     [SerializeField] private int levelToUnlock; // Isi di Inspector (Contoh: isi 2 jika ini Level 1)

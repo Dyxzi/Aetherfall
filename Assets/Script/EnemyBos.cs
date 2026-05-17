@@ -12,7 +12,10 @@ public class EnemyBoss : EnemyControler
 
     private SpriteRenderer sprite;
 
-  
+    [Header("Drop")]
+    public GameObject crystalPrefab;
+
+
 
     protected override void Start()
     {
@@ -141,6 +144,12 @@ public class EnemyBoss : EnemyControler
             {
                 anim.SetTrigger("Die");
             }
+
+            Instantiate(
+                crystalPrefab,
+                transform.position,
+                Quaternion.identity
+            );
 
             // Tambah score SEKALI
             ScoreManager.DefeatEnemy();
