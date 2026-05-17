@@ -105,9 +105,22 @@ public class EnemyBoss : EnemyControler
         }
     }
 
+        // 🔥 Kalau sudah mati
     public override void DamagedBy(float damage)
     {
-        // 🔥 Kalau sudah mati
+        // Kalau sudah mati
+        if (isDead)
+            return;
+
+        health -= damage;
+
+        // Hit animation
+        if (anim != null)
+        {
+            anim.SetTrigger("Hit");
+        }
+
+        // Mati
         if (health <= 0)
         {
             isDead = true;
@@ -129,6 +142,7 @@ public class EnemyBoss : EnemyControler
                 anim.SetTrigger("Die");
             }
 
+            // Tambah score SEKALI
             ScoreManager.DefeatEnemy();
 
             Destroy(gameObject, 1f);

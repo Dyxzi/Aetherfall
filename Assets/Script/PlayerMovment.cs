@@ -39,6 +39,7 @@ public class PlayerMovment : MonoBehaviour
     public float attack = 5;
     public float shootCooldown = 0.2f;
     private float shootTimer = 0f;
+    
 
     [Header("Ground Check")]
     [SerializeField] private float minGroundDistance = 1.5f;
@@ -207,23 +208,58 @@ public class PlayerMovment : MonoBehaviour
         {
             shootTimer = shootCooldown;
 
-            int direction = playerSprite.flipX ? -1 : 1;
+            // 🔥 Posisi mouse
+            Vector3 mousePos =
+            Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
+            mousePos.z = 0;
+
+            // 🔥 Posisi senjata
             Vector2 gunPos = (Vector2)transform.position +
-                 new Vector2(Mathf.Abs(gunOffset.x) * direction, gunOffset.y);
+                 new Vector2(
+                     Mathf.Abs(gunOffset.x) * (playerSprite.flipX ? -1 : 1),
+                     gunOffset.y
+                 );
 
-            GameObject bullet = Instantiate(bulletPrefab, gunPos, Quaternion.identity);
+            // 🔥 Spawn bullet
+            GameObject bullet =
+            Instantiate(
+                bulletPrefab,
+                gunPos,
+                Quaternion.identity
+            );
 
+            // 🔥 Arah bullet
+            Vector2 direction =
+            (mousePos - bullet.transform.position).normalized;
+
+            // 🔥 Launch bullet
             Bullet b = bullet.GetComponent<Bullet>();
+
             if (b != null)
             {
-                b.Launch(new Vector2(direction, 0), "Enemy", bulletSpeed, attack);
+                b.Launch(
+                    direction,
+                    "Enemy",
+                    bulletSpeed,
+                    attack
+                );
             }
 
-            SpriteRenderer bulletSprite = bullet.GetComponentInChildren<SpriteRenderer>();
-            if (bulletSprite != null)
-                bulletSprite.flipX = playerSprite.flipX;
+            // 🔥 Rotate bullet
+            float angle =
+            Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
+            bullet.transform.rotation =
+            Quaternion.Euler(0, 0, angle);
+
+            // 🔥 Flip player
+            if (mousePos.x < transform.position.x)
+                playerSprite.flipX = true;
+            else
+                playerSprite.flipX = false;
+
+            // 🔥 Animasi
             if (anim != null)
                 anim.SetTrigger("isAttacking");
 
