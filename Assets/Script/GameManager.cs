@@ -62,10 +62,6 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    // =====================
-    // ⏸️ PAUSE SYSTEM
-    // =====================
-
     public void PauseGame()
     {
         isPaused = true;
@@ -97,10 +93,6 @@ public class GameManager : MonoBehaviour
         else
             PauseGame();
     }
-
-    // =====================
-    // 🚪 EXIT GAME
-    // =====================
 
     public void ExitToMenu()
     {

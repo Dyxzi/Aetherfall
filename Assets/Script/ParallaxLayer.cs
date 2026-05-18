@@ -12,7 +12,6 @@ public class ParallaxLayer : MonoBehaviour
     {
         cam = Camera.main.transform;
 
-        // 🔥 FIX supaya tidak loncat saat play
         startPosition = transform.position - new Vector3(cam.position.x * parallaxFactor, 0, 0);
     }
 

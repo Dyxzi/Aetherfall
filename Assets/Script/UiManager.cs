@@ -20,35 +20,41 @@ public class UIManager : MonoBehaviour
     public GameObject levelCompleteUI;
     public GameObject pauseUI;
 
+    [Header("Main Menu")]
+    public TextMeshProUGUI totalCrystal;
+
     [Header("Player")]
     public PlayerMovment player;
 
-    // 🔥 FINISH SYSTEM
     [Header("Finish")]
     public Transform finishPoint;
     public float finishDistance = 1.5f;
 
-    // 🔊 SETTINGS AUDIO
     [Header("Settings")]
     public Slider musicSlider;
     public Slider sfxSlider;
 
     void Start()
     {
-        Time.timeScale = 1f;
-        // 🔥 Health bar pivot
-        if (playerHealthBar)
+        // Load total kristal di Main Menu
+        if (totalCrystal != null)
         {
-            playerHealthBar.rectTransform.pivot =
-            new Vector2(0, 0.5f);
+            int total = PlayerPrefs.GetInt("TotalCrystal", 0);
+            totalCrystal.text = ": " + total;
         }
 
-        // 🔊 LOAD MUSIC
+        Time.timeScale = 1f;
+
+        // Set sumbu bar darah di sebelah kiri
+        if (playerHealthBar)
+        {
+            playerHealthBar.rectTransform.pivot = new Vector2(0, 0.5f);
+        }
+
+        // Load volume musik
         if (musicSlider != null)
         {
-            float music =
-            PlayerPrefs.GetFloat("Music", 1f);
-
+            float music = PlayerPrefs.GetFloat("Music", 1f);
             musicSlider.value = music;
 
             if (AudioManager.Instance != null)
@@ -57,12 +63,10 @@ public class UIManager : MonoBehaviour
             }
         }
 
-        // 🔊 LOAD SFX
+        // Load volume SFX
         if (sfxSlider != null)
         {
-            float sfx =
-            PlayerPrefs.GetFloat("SFX", 1f);
-
+            float sfx = PlayerPrefs.GetFloat("SFX", 1f);
             sfxSlider.value = sfx;
 
             if (AudioManager.Instance != null)
@@ -71,7 +75,6 @@ public class UIManager : MonoBehaviour
             }
         }
 
-        // 🔥 Hide text awal
         if (allEnemyDefeatedText != null)
         {
             allEnemyDefeatedText.SetActive(false);
@@ -80,112 +83,62 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-        // 🔥 ENEMY TEXT
+        // Update teks jumlah musuh (contoh: 1/5)
         if (enemyProgressText)
         {
-            enemyProgressText.text =
-            " " +
-            ScoreManager.currentEnemyProgress +
-            " / " +
-            ScoreManager.targetEnemyProgress;
+            enemyProgressText.text = " " + ScoreManager.currentEnemyProgress + " / " + ScoreManager.targetEnemyProgress;
         }
 
-        // 🔥 ENEMY PROGRESS BAR
+        // Animasi bar progres musuh
         if (enemyProgressBar)
         {
-            float target =
-            (float)ScoreManager.currentEnemyProgress /
-            ScoreManager.targetEnemyProgress;
-
-            enemyProgressBar.fillAmount =
-            Mathf.Lerp(
-                enemyProgressBar.fillAmount,
-                target,
-                Time.deltaTime * 5f
-            );
+            float target = (float)ScoreManager.currentEnemyProgress / ScoreManager.targetEnemyProgress;
+            enemyProgressBar.fillAmount = Mathf.Lerp(enemyProgressBar.fillAmount, target, Time.deltaTime * 5f);
         }
 
-        // 🔥 ALL ENEMY DEFEATED TEXT
+        // Notifikasi semua musuh kalah
         if (allEnemyDefeatedText != null)
         {
-            if (ScoreManager.IsAllEnemyDefeated())
-            {
-                allEnemyDefeatedText.SetActive(true);
-            }
-            else
-            {
-                allEnemyDefeatedText.SetActive(false);
-            }
+            allEnemyDefeatedText.SetActive(ScoreManager.IsAllEnemyDefeated());
         }
 
-        // 🔥 HEALTH BAR
+        // Animasi pengurangan bar darah player
         if (playerHealthBar)
         {
-            Vector2 size =
-            playerHealthBar.rectTransform.sizeDelta;
-
-            float targetX =
-            player.health /
-            player.healthMax *
-            playerHealthBarFullX;
-
-            size.x =
-            Mathf.Lerp(
-                size.x,
-                targetX,
-                Time.deltaTime * 10f
-            );
-
+            Vector2 size = playerHealthBar.rectTransform.sizeDelta;
+            float targetX = player.health / player.healthMax * playerHealthBarFullX;
+            size.x = Mathf.Lerp(size.x, targetX, Time.deltaTime * 10f);
             playerHealthBar.rectTransform.sizeDelta = size;
         }
 
-        // 🔥 FINISH CHECK
         CheckFinish();
 
-        // 🔥 UI STATE
-        if (levelCompleteUI)
-            levelCompleteUI.SetActive(GameManager.isLevelComplete);
+        // Sinkronisasi status panel UI
+        if (levelCompleteUI) levelCompleteUI.SetActive(GameManager.isLevelComplete);
+        if (gameOverUI) gameOverUI.SetActive(GameManager.isGameOver);
+        if (pauseUI) pauseUI.SetActive(GameManager.isPaused);
 
-        if (gameOverUI)
-            gameOverUI.SetActive(GameManager.isGameOver);
-
-        if (pauseUI)
-            pauseUI.SetActive(GameManager.isPaused);
-
-        // 🔥 AUTO PAUSE
         CheckGameState();
     }
 
+    // Menghentikan waktu game otomatis jika ada panel UI yang terbuka
     void CheckGameState()
     {
         bool anyUIOpen = false;
 
-        if (pauseUI != null && pauseUI.activeSelf)
-            anyUIOpen = true;
+        if (pauseUI != null && pauseUI.activeSelf) anyUIOpen = true;
+        if (gameOverUI != null && gameOverUI.activeSelf) anyUIOpen = true;
+        if (levelCompleteUI != null && levelCompleteUI.activeSelf) anyUIOpen = true;
 
-        if (gameOverUI != null && gameOverUI.activeSelf)
-            anyUIOpen = true;
-
-        if (levelCompleteUI != null && levelCompleteUI.activeSelf)
-            anyUIOpen = true;
-
-        if (anyUIOpen)
-            Time.timeScale = 0f;
-        else
-            Time.timeScale = 1f;
+        Time.timeScale = anyUIOpen ? 0f : 1f;
     }
 
-    // 🔥 FINISH SYSTEM
+    // Cek apakah player sudah sampai di titik finish dan semua musuh kalah
     void CheckFinish()
     {
-        if (player == null || finishPoint == null)
-            return;
+        if (player == null || finishPoint == null) return;
 
-        float distance =
-        Vector2.Distance(
-            player.transform.position,
-            finishPoint.position
-        );
+        float distance = Vector2.Distance(player.transform.position, finishPoint.position);
 
         if (distance <= finishDistance)
         {
@@ -200,25 +153,28 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    // 🔊 MUSIC SETTINGS
+    // Pengaturan volume musik via Slider
     public void SetMusic(float value)
     {
         PlayerPrefs.SetFloat("Music", value);
-
-        if (AudioManager.Instance != null)
-        {
-            AudioManager.Instance.SetMusicVolume(value);
-        }
+        if (AudioManager.Instance != null) AudioManager.Instance.SetMusicVolume(value);
     }
 
-    // 🔊 SFX SETTINGS
+    // Pengaturan volume SFX via Slider
     public void SetSFX(float value)
     {
         PlayerPrefs.SetFloat("SFX", value);
+        if (AudioManager.Instance != null) AudioManager.Instance.SetSFXVolume(value);
+    }
 
-        if (AudioManager.Instance != null)
-        {
-            AudioManager.Instance.SetSFXVolume(value);
-        }
+    // Reset total tabungan kristal
+    public void ResetProgress()
+    {
+        PlayerPrefs.DeleteKey("TotalCrystal");
+        ScoreManager.crystal = 0;
+        PlayerPrefs.Save();
+
+        if (totalCrystal != null) totalCrystal.text = ": ";
+        Debug.Log("Progress Reset");
     }
 }

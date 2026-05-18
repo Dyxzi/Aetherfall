@@ -9,7 +9,7 @@ public class ScoreManager : MonoBehaviour
     public static int crystal = 0;
 
     [Header("Level Settings")]
-    [SerializeField] private int levelToUnlock; // Isi di Inspector (Contoh: isi 2 jika ini Level 1)
+    [SerializeField] private int levelToUnlock;
 
     void Awake()
     {
@@ -46,7 +46,7 @@ public class ScoreManager : MonoBehaviour
 
     private static void UnlockLevel()
     {
-        // Kita butuh referensi ke levelToUnlock dari Instance karena fungsinya static
+      
         int nextLevel = Instance.levelToUnlock;
 
         int reachedLevel = PlayerPrefs.GetInt("ReachedLevel", 1);

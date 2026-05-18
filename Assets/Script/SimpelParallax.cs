@@ -21,7 +21,7 @@ public class SimpleParallax : MonoBehaviour
     {
         if (cam == null) return;
 
-        // 🔥 PARALLAX
+        // PARALLAX
         float movement = cam.position.x * parallaxEffect;
 
         transform.position = new Vector3(
@@ -30,7 +30,7 @@ public class SimpleParallax : MonoBehaviour
             transform.position.z
         );
 
-        // 🔥 INFINITE LOOP
+        // INFINITE LOOP
         float distance = cam.position.x - transform.position.x;
 
         if (distance > spriteWidth)

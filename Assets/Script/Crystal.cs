@@ -11,7 +11,7 @@ public class Crystal : MonoBehaviour
             // Crystal saat ini
             ScoreManager.crystal += value;
 
-            // 🔥 Total crystal permanen
+            // Total crystal permanen
             int total =
             PlayerPrefs.GetInt("TotalCrystal", 0);
 

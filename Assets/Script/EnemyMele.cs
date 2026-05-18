@@ -76,7 +76,7 @@ public class EnemyMelee : EnemyControler
         else if (dist < -patrolDistance && patrolDirection == -1) patrolDirection = 1;
 
         if (graphic != null) graphic.flipX = patrolDirection < 0;
-        if (anim != null) anim.SetBool("Idle", true);
+        
     }
 
     void Chase(int direction, float distanceX)

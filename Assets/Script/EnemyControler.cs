@@ -7,7 +7,7 @@ public class EnemyControler : MonoBehaviour
     public float health = 1;
     public float attack = 5;
     public Transform attackTarget;
-    protected bool isDead = false; // 🔥 Tambahkan ini untuk mencegah skor double
+    protected bool isDead = false; // Tambahkan ini untuk mencegah skor double
 
     [Header("Component")]
     protected Animator anim;
@@ -18,7 +18,7 @@ public class EnemyControler : MonoBehaviour
     [SerializeField] protected float moveSpeed = 2.5f;
 
     [Header("Drop")]
-    public GameObject crystalPrefab;
+    [SerializeField] protected GameObject crystalPrefab;
 
     protected virtual void Start()
     {

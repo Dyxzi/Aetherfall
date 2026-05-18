@@ -6,7 +6,7 @@ public class CameraFollow : MonoBehaviour
     public float smoothSpeed = 5f;
     public Vector3 offset;
 
-    // 🔥 batas camera
+    //  batas camera
     public Vector2 minBounds;
     public Vector2 maxBounds;
 
@@ -16,7 +16,7 @@ public class CameraFollow : MonoBehaviour
 
         Vector3 targetPos = player.position + offset;
 
-        // 🔥 clamp posisi camera
+        // posisi camera
         float clampedX = Mathf.Clamp(targetPos.x, minBounds.x, maxBounds.x);
         float clampedY = Mathf.Clamp(targetPos.y, minBounds.y, maxBounds.y);
 
@@ -25,7 +25,7 @@ public class CameraFollow : MonoBehaviour
         transform.position = smoothPos;
     }
 
-    // 🔥 dipanggil dari trigger
+    //  dipanggil dari trigger
     public void SetBounds(Vector2 min, Vector2 max)
     {
         minBounds = min;

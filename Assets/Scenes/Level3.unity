@@ -1133,6 +1133,7 @@ MonoBehaviour:
   attack: 5
   attackTarget: {fileID: 1799018984533133110}
   moveSpeed: 2.5
+  crystalPrefab: {fileID: 5176956769342583472, guid: 7d5ffacda96c5e0418d1baa44de7b3d0, type: 3}
   detectDistance: 6
   attackDistance: 2
   patrolDistance: 2
@@ -1290,6 +1291,7 @@ MonoBehaviour:
   attack: 5
   attackTarget: {fileID: 1799018984533133110}
   moveSpeed: 2.5
+  crystalPrefab: {fileID: 5176956769342583472, guid: 7d5ffacda96c5e0418d1baa44de7b3d0, type: 3}
   detectDistance: 6
   attackDistance: 2
   patrolDistance: 2
@@ -85492,6 +85494,7 @@ MonoBehaviour:
   attack: 5
   attackTarget: {fileID: 1799018984533133110}
   moveSpeed: 2.5
+  crystalPrefab: {fileID: 5176956769342583472, guid: 7d5ffacda96c5e0418d1baa44de7b3d0, type: 3}
   detectDistance: 6
   attackDistance: 2
   patrolDistance: 2
@@ -85618,6 +85621,7 @@ MonoBehaviour:
   attack: 5
   attackTarget: {fileID: 1799018984533133110}
   moveSpeed: 2.5
+  crystalPrefab: {fileID: 5176956769342583472, guid: 7d5ffacda96c5e0418d1baa44de7b3d0, type: 3}
   detectDistance: 6
   attackDistance: 2
   patrolDistance: 2
@@ -89452,6 +89456,7 @@ MonoBehaviour:
   attack: 5
   attackTarget: {fileID: 1799018984533133110}
   moveSpeed: 2.5
+  crystalPrefab: {fileID: 5176956769342583472, guid: 7d5ffacda96c5e0418d1baa44de7b3d0, type: 3}
   detectDistance: 6
   attackDistance: 2
   patrolDistance: 2
@@ -90206,6 +90211,7 @@ MonoBehaviour:
   attack: 5
   attackTarget: {fileID: 1799018984533133110}
   moveSpeed: 2.5
+  crystalPrefab: {fileID: 5176956769342583472, guid: 7d5ffacda96c5e0418d1baa44de7b3d0, type: 3}
   detectDistance: 6
   attackDistance: 2
   patrolDistance: 2
@@ -92619,6 +92625,7 @@ MonoBehaviour:
   attack: 5
   attackTarget: {fileID: 1799018984533133110}
   moveSpeed: 2.5
+  crystalPrefab: {fileID: 5176956769342583472, guid: 7d5ffacda96c5e0418d1baa44de7b3d0, type: 3}
   detectDistance: 6
   attackDistance: 2
   patrolDistance: 2
@@ -92923,6 +92930,7 @@ MonoBehaviour:
   attack: 5
   attackTarget: {fileID: 1799018984533133110}
   moveSpeed: 2.5
+  crystalPrefab: {fileID: 5176956769342583472, guid: 7d5ffacda96c5e0418d1baa44de7b3d0, type: 3}
   detectDistance: 6
   attackDistance: 2
   patrolDistance: 2
@@ -98959,6 +98967,7 @@ MonoBehaviour:
   attack: 20
   attackTarget: {fileID: 1799018984533133110}
   moveSpeed: 5
+  crystalPrefab: {fileID: 5176956769342583472, guid: 7d5ffacda96c5e0418d1baa44de7b3d0, type: 3}
   detectDistance: 8
   attackDistance: 3
   attackCooldown: 1.5
@@ -99014,6 +99023,7 @@ MonoBehaviour:
   attack: 15
   attackTarget: {fileID: 1799018984533133110}
   moveSpeed: 3.5
+  crystalPrefab: {fileID: 5176956769342583472, guid: 7d5ffacda96c5e0418d1baa44de7b3d0, type: 3}
   detectDistance: 8
   attackDistance: 3
   attackCooldown: 1.5
@@ -100478,6 +100488,7 @@ MonoBehaviour:
   attack: 5
   attackTarget: {fileID: 1799018984533133110}
   moveSpeed: 2.5
+  crystalPrefab: {fileID: 5176956769342583472, guid: 7d5ffacda96c5e0418d1baa44de7b3d0, type: 3}
   detectDistance: 6
   attackDistance: 2
   patrolDistance: 2
@@ -101494,6 +101505,7 @@ MonoBehaviour:
   attack: 5
   attackTarget: {fileID: 1799018984533133110}
   moveSpeed: 2.5
+  crystalPrefab: {fileID: 5176956769342583472, guid: 7d5ffacda96c5e0418d1baa44de7b3d0, type: 3}
   detectDistance: 6
   attackDistance: 2
   patrolDistance: 2
@@ -102510,6 +102522,7 @@ MonoBehaviour:
   attack: 5
   attackTarget: {fileID: 1799018984533133110}
   moveSpeed: 2.5
+  crystalPrefab: {fileID: 5176956769342583472, guid: 7d5ffacda96c5e0418d1baa44de7b3d0, type: 3}
   detectDistance: 6
   attackDistance: 2
   patrolDistance: 2
@@ -104302,6 +104315,7 @@ MonoBehaviour:
   attack: 5
   attackTarget: {fileID: 1799018984533133110}
   moveSpeed: 2.5
+  crystalPrefab: {fileID: 5176956769342583472, guid: 7d5ffacda96c5e0418d1baa44de7b3d0, type: 3}
   detectDistance: 6
   attackDistance: 2
   patrolDistance: 2
@@ -105244,6 +105258,7 @@ MonoBehaviour:
   attack: 5
   attackTarget: {fileID: 1799018984533133110}
   moveSpeed: 2.5
+  crystalPrefab: {fileID: 5176956769342583472, guid: 7d5ffacda96c5e0418d1baa44de7b3d0, type: 3}
   detectDistance: 6
   attackDistance: 2
   patrolDistance: 2
@@ -162059,6 +162074,7 @@ MonoBehaviour:
   attack: 5
   attackTarget: {fileID: 1799018984533133110}
   moveSpeed: 2.5
+  crystalPrefab: {fileID: 5176956769342583472, guid: 7d5ffacda96c5e0418d1baa44de7b3d0, type: 3}
   detectDistance: 6
   attackDistance: 2
   patrolDistance: 2
@@ -164631,6 +164647,7 @@ MonoBehaviour:
   gameOverUI: {fileID: 7484909836742845316}
   levelCompleteUI: {fileID: 2443275963519543368}
   pauseUI: {fileID: 8148248084287064582}
+  totalCrystal: {fileID: 0}
   player: {fileID: 4063231527695816519}
   finishPoint: {fileID: 2843859963904154649}
   finishDistance: 3
@@ -167007,7 +167024,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1945936681914617959}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: NextLevel
+        m_MethodName: ExitToMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -167190,7 +167207,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: NEXT
+  m_Text: Back To Menu
 --- !u!224 &5976000031881061100
 RectTransform:
   m_ObjectHideFlags: 0
@@ -169673,8 +169690,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 110.18, y: -75.2}
-  m_SizeDelta: {x: 167.3725, y: 58.3997}
+  m_AnchoredPosition: {x: 122.486984, y: -75.2}
+  m_SizeDelta: {x: 191.9865, y: 58.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &8230258814828770061
 RectTransform:

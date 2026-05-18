@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerMovment : MonoBehaviour
 {
@@ -39,12 +40,10 @@ public class PlayerMovment : MonoBehaviour
     public float attack = 5;
     public float shootCooldown = 0.2f;
     private float shootTimer = 0f;
-    
 
     [Header("Ground Check")]
     [SerializeField] private float minGroundDistance = 1.5f;
 
-    // 🔥 WALL SYSTEM
     [Header("Wall System")]
     [SerializeField] private float wallCheckDistance = 0.6f;
     [SerializeField] private LayerMask wallLayer;
@@ -80,7 +79,6 @@ public class PlayerMovment : MonoBehaviour
             Shoot();
         }
 
-        // 🔥 WALL SYSTEM
         CheckWall();
         WallSlide();
 
@@ -102,12 +100,11 @@ public class PlayerMovment : MonoBehaviour
         FallDie();
     }
 
-    // ---------------- Movement ----------------
+    // Sistem Gerak Horizontal
     void Movement()
     {
         float x = Input.GetAxisRaw("Horizontal");
 
-        // 🔥 kalau wall slide, jangan gerak bebas
         if (!isWallSliding)
             rb.linearVelocity = new Vector2(x * moveSpeed, rb.linearVelocity.y);
 
@@ -122,7 +119,7 @@ public class PlayerMovment : MonoBehaviour
         }
     }
 
-    // ---------------- Jump ----------------
+    // Sistem Lompat & Wall Jump
     void Jump()
     {
         RaycastHit2D ray = Physics2D.Raycast(transform.position, Vector2.down, 10, LayerMask.GetMask("Obstacle"));
@@ -132,7 +129,6 @@ public class PlayerMovment : MonoBehaviour
         else
             isGrounded = false;
 
-        // 🔥 WALL JUMP
         if (isWallSliding && Input.GetKeyDown(KeyCode.Space))
         {
             float direction = playerSprite.flipX ? 1 : -1;
@@ -146,25 +142,21 @@ public class PlayerMovment : MonoBehaviour
         }
     }
 
-    // 🔥 CEK TEMBOK
+    // Deteksi Tembok
     void CheckWall()
     {
         Vector2 direction = playerSprite.flipX ? Vector2.left : Vector2.right;
-
         RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, wallCheckDistance, wallLayer);
-
         isTouchingWall = hit;
     }
 
-    // 🔥 WALL SLIDE
+    // Perhitungan Wall Slide
     void WallSlide()
     {
         if (isTouchingWall && !isGrounded && rb.linearVelocity.y < 0)
         {
             isWallSliding = true;
-
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, -wallSlideSpeed);
-
             wallTimer -= Time.deltaTime;
 
             if (wallTimer <= 0)
@@ -201,65 +193,42 @@ public class PlayerMovment : MonoBehaviour
             isGrounded = false;
     }
 
-    // ---------------- Shooting ----------------
+    // Sistem Menembak Proyektil kearah Mouse
     void Shoot()
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+            return;
+
         if (Input.GetMouseButtonDown(0) && shootTimer <= 0f)
         {
             shootTimer = shootCooldown;
 
-            // 🔥 Posisi mouse
-            Vector3 mousePos =
-            Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePos.z = 0;
 
-            // 🔥 Posisi senjata
             Vector2 gunPos = (Vector2)transform.position +
                  new Vector2(
                      Mathf.Abs(gunOffset.x) * (playerSprite.flipX ? -1 : 1),
                      gunOffset.y
                  );
 
-            // 🔥 Spawn bullet
-            GameObject bullet =
-            Instantiate(
-                bulletPrefab,
-                gunPos,
-                Quaternion.identity
-            );
+            GameObject bullet = Instantiate(bulletPrefab, gunPos, Quaternion.identity);
+            Vector2 direction = (mousePos - bullet.transform.position).normalized;
 
-            // 🔥 Arah bullet
-            Vector2 direction =
-            (mousePos - bullet.transform.position).normalized;
-
-            // 🔥 Launch bullet
             Bullet b = bullet.GetComponent<Bullet>();
-
             if (b != null)
             {
-                b.Launch(
-                    direction,
-                    "Enemy",
-                    bulletSpeed,
-                    attack
-                );
+                b.Launch(direction, "Enemy", bulletSpeed, attack);
             }
 
-            // 🔥 Rotate bullet
-            float angle =
-            Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            bullet.transform.rotation = Quaternion.Euler(0, 0, angle);
 
-            bullet.transform.rotation =
-            Quaternion.Euler(0, 0, angle);
-
-            // 🔥 Flip player
             if (mousePos.x < transform.position.x)
                 playerSprite.flipX = true;
             else
                 playerSprite.flipX = false;
 
-            // 🔥 Animasi
             if (anim != null)
                 anim.SetTrigger("isAttacking");
 
@@ -267,16 +236,13 @@ public class PlayerMovment : MonoBehaviour
         }
     }
 
-    // ---------------- Damage System ----------------
+    // Sistem Pengurangan Darah & Efek Terpental (Knockback)
     public void DamagedBy(float damage, Vector2 hitSource)
     {
         if (invincibleTimer > 0) return;
-
-        if (Vector2.Distance(transform.position, hitSource) > 3f)
-            return;
+        if (Vector2.Distance(transform.position, hitSource) > 3f) return;
 
         invincibleTimer = invincibleTime;
-
         health -= damage;
 
         if (anim != null)
@@ -297,6 +263,7 @@ public class PlayerMovment : MonoBehaviour
         }
     }
 
+    // Deteksi Mati Masuk Jurang
     void FallDie()
     {
         if (transform.position.y < -25)
@@ -305,6 +272,7 @@ public class PlayerMovment : MonoBehaviour
         }
     }
 
+    // Konsekuensi Kematian Player
     void Die()
     {
         playerSprite.enabled = false;
@@ -316,7 +284,7 @@ public class PlayerMovment : MonoBehaviour
         GameManager.GameOver();
     }
 
-    // 🔥 FINAL TRIGGER SYSTEM (BULLET + SPIKE)
+    // Sensor Jebakan Duri & Peluru Musuh
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Spike"))

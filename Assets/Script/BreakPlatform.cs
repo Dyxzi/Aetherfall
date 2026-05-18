@@ -49,7 +49,7 @@ public class BreakPlatform : MonoBehaviour
     {
         float timer = 0f;
 
-        // 🔥 SHAKE
+        //  SHAKE
         while (timer < breakDelay)
         {
             timer += Time.deltaTime;
@@ -63,10 +63,10 @@ public class BreakPlatform : MonoBehaviour
 
         transform.position = startPos;
 
-        // 🔥 MATIKAN COLLIDER DULU
+        // MATIKAN COLLIDER DULU
         col.enabled = false;
 
-        // 🔥 JATUH
+        // JATUH
         rb.bodyType = RigidbodyType2D.Dynamic;
 
         Destroy(gameObject, destroyTime);
